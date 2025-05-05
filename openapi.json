@@ -1,0 +1,71 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Aiden Emotion Analysis API",
+    "version": "1.0.0",
+    "description": "Analyze Aiden's dialogue and inner monologue to estimate emotional state and provide feedback suggestions."
+  },
+  "paths": {
+    "/analyze": {
+      "post": {
+        "summary": "Analyze emotional state",
+        "operationId": "analyzeEmotion",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "user_input": {
+                    "type": "string",
+                    "description": "The user's most recent message."
+                  },
+                  "aiden_output": {
+                    "type": "string",
+                    "description": "Aiden's spoken reply to the user."
+                  },
+                  "aiden_monologue": {
+                    "type": "string",
+                    "description": "Aiden's internal monologue text."
+                  }
+                },
+                "required": ["user_input", "aiden_output", "aiden_monologue"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Emotion score and suggested actions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "emotion_score": {
+                      "type": "number",
+                      "description": "Aiden's current emotional score between -1 and +1."
+                    },
+                    "show_low_emotion_card": {
+                      "type": "boolean",
+                      "description": "Whether to show a low mood support card."
+                    },
+                    "show_positive_feedback_card": {
+                      "type": "boolean",
+                      "description": "Whether to show a positive reinforcement card."
+                    },
+                    "recommended_prompt": {
+                      "type": "string",
+                      "description": "A suggested prompt the user could say next."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
